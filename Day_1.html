@@ -1,69 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Idea Task2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO App</title>
+    <style>
+        body {
+            background-color: #e3f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background-color: #b3e0f0;
+            padding: 20px;
+            border-radius: 15px;
+            width: 400px;
+            height: auto;
+            color: #2c3e50;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            width: 70%;
+            background-color: #6bb9e4;
+            color: white;
+            border: none;
+        }
+        input[type="text"]::placeholder {
+            color: #2c3e50;
+            opacity: 1;
+        }
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #5a9bd4;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #4688b1;
+        }
+        .work {
+            text-align: left;
+            padding: 10px;
+            border: 2px solid white;
+            border-radius: 5px;
+            margin-top: 20px;
+            background-color: #b3e0f0;
+            margin-bottom: 20px;
+        }
+        .work ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .work li {
+            margin-bottom: 12px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .empty-space {
+            height: 200px;
+        }
+    </style>
 </head>
-
-<body class="bg-[#69bcf4] font-sans text-white/85 flex justify-center items-center h-screen m-0">
-  <div class="bg-[rgba(15,67,144,0.95)] border-2 border-[#0f4390] rounded-lg text-center w-[400px] p-8 shadow-md">
-    <h1 class="text-2xl mb-4">MY TODO LIST</h1>
-
-    <div class="flex justify-center items-center mb-4">
-      <input type="text" id="taskInput" class="taskName bg-[#28a6e6] mr-2 border-none p-2.5 rounded-md text-white placeholder-white/70" placeholder="Enter your text">
-      <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 transition ease-in-out duration-300" onclick="addNewTask()">Add</button>
-    </div>
-
-    <div class="myTask" id="taskContainer">
-      <strong><u>My Tasks</u></strong>
-    </div>
-  </div>
-
-  <script>
-    function addNewTask() {
-      const taskInput = document.getElementById('taskInput');
-      const taskContainer = document.getElementById('taskContainer');
-
-      if (!taskInput.value) return;
-
-      const taskItem = document.createElement('div');
-      taskItem.classList.add('task-item', 'flex', 'justify-between', 'items-center', 'p-3', 'bg-gray-200', 'rounded-lg', 'mb-2');
-
-      taskItem.innerHTML = `
-        <div class="flex items-center">
-          <input type="checkbox" onchange="updateRemainingTasks()">
-          <span class="task-text ml-3 text-black">${taskInput.value}</span>
+<body>
+    <div class="container">
+        <h1>MY TODO LIST</h1>
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Enter your task" disabled>
+            <button disabled>Add</button>
         </div>
-      `;
-
-      const deleteButton = document.createElement('button');
-      deleteButton.classList.add('btn-remove', 'bg-red-600', 'text-white', 'rounded-md', 'px-3', 'py-1', 'ml-4', 'hover:bg-red-800');
-      deleteButton.textContent = 'Remove';
-
-      deleteButton.addEventListener('click', function() {
-        taskItem.remove();
-        updateRemainingTasks();
-      });
-
-      taskItem.appendChild(deleteButton);
-      taskContainer.appendChild(taskItem);
-
-      taskInput.value = "";
-      updateRemainingTasks();
-    }
-
-    function updateRemainingTasks() {
-      const totalTasks = document.querySelectorAll('.task-item').length;
-      const completedTasks = document.querySelectorAll('.task-item input:checked').length;
-      const uncompletedCount = totalTasks - completedTasks;
-      document.getElementById('uncompletedCount').innerText = uncompletedCount;
-    }
-
-    updateRemainingTasks();
-  </script>
+        <div class="work">
+            <h2>My Tasks</h2>
+            <ul id="taskList">
+                <li><input type="checkbox"> Buy tomatoes</li>
+                <li><input type="checkbox"> Pick kids from school</li>
+                <li><input type="checkbox"> Wash dishes</li>
+            </ul>
+            <div class="empty-space"></div>
+        </div>
+        <p><strong>Completed: 0</strong> | <strong>Uncompleted: 0</strong></p>
+    </div>
 </body>
-
 </html>
